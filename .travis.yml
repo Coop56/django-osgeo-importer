@@ -26,6 +26,7 @@ before_install:
   - sudo curl -L "https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
   - sudo chmod +x /usr/local/bin/docker-compose
   - docker-compose --version
+  - DCO="docker-compose -f docker-compose.yml -f docker-compose.travis.yml"
 
   # Install other tools
   - pip install coveralls
@@ -34,10 +35,11 @@ before_install:
   - sudo service postgresql stop
 
 before_script:
-  - docker-compose -f docker-compose.yml -f docker-compose.travis.yml up --build -d
+  - $DCO up --build -d
 
 script:
-  - docker exec -it djangoosgeoimporter_django_1 python manage.py test osgeo_importer
+  - $DCO kill django
+  - $DCO up django
 
 after_script:
   - docker-compose down
