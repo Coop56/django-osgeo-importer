@@ -1,0 +1,4 @@
+version: '3'
+services:
+  django:
+    command: python manage.py test osgeo_importer
