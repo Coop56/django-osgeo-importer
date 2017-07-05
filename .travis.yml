@@ -30,6 +30,9 @@ before_install:
   # Install other tools
   - pip install coveralls
 
+  # Disable postgres so our container can use Port 5432
+  - sudo service postgresql stop
+
 before_script:
   - docker-compose up --build -d
 
