@@ -19,10 +19,12 @@ RUN pip install -r requirements.dev.txt
 
 COPY scripts/epsg_extra /usr/local/lib/python2.7/site-packages/pyproj/data/
 
-RUN mkdir -p -m 777 importer-test-files
+RUN mkdir -p -m 777 /app/importer-test-files
 RUN aws --no-sign-request s3 sync s3://mapstory-data/importer-test-files/ /app/importer-test-files
 
 COPY . .
+
+RUN ls
 
 RUN python manage.py migrate --noinput
 
