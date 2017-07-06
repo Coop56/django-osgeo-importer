@@ -37,11 +37,8 @@ before_script:
   - docker-compose up --build -d
 
 script:
-  - docker exec -it djangoosgeoimporter_django_1 pwd
-  - docker exec -it djangoosgeoimporter_django_1 ls
-  - docker exec -it djangoosgeoimporter_django_1 ls /app/importer-test-files
+  - docker exec -it djangoosgeoimporter_django_1 mkdir -p -m 777 /app/importer-test-files
   - docker exec -it djangoosgeoimporter_django_1 aws --no-sign-request s3 sync s3://mapstory-data/importer-test-files/ /app/importer-test-files
-  - docker exec -it djangoosgeoimporter_django_1 ls /app/importer-test-files
   - docker exec -it djangoosgeoimporter_django_1 python manage.py test osgeo_importer
 
 after_script:

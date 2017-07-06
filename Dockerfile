@@ -24,10 +24,6 @@ RUN aws --no-sign-request s3 sync s3://mapstory-data/importer-test-files/ /app/i
 
 COPY . .
 
-RUN pwd
-RUN ls
-RUN ls -la /app/importer-test-files
-
 RUN python manage.py migrate --noinput
 
 CMD [ "python", "./manage.py", "runserver", "0.0.0.0:8000" ]
