@@ -690,6 +690,8 @@ def reproject_coordinate_system(layer_name, in_shp_layer):
     prj_file.write(spatialRef.ExportToWkt())
     prj_file.close()
 
+    return '4326'
+
 
 def database_schema_name():
     db_settings = db.connections[settings.OSGEO_DATASTORE].settings_dict
